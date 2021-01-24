@@ -1,32 +1,34 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>MyBookFace</title>
     <script type="text/javascript" src="js/md5.js"></script>
     <script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
+    <link href="css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 
-<body>
+<body style="background-color:#101010;">
     <h1>
-        HELLO WORLD!!!!!
+        <span style="color:white;">My</span><span style="color:#3B5998;">BookFace</style>
     </h1>
-</body>
 
-<div id="tempRegisterDiv">
-    <h3>Temporary Registration Testing</h3>
-    <input type = "text" id="registerFirst" placeholder="First Name" /><br/>
-    <input type = "text" id="registerLast" placeholder="Last Name" /><br/>
-    <input type = "text" id="registerUsername" placeholder="Username" /><br/>
-    <input type="password" id="registerPassword" placeholder="Password"/><br />
-    <button type="button" id="registerButton" class="buttons" onclick="doRegister();"> Register </button>
-    <span id="registerResult"></span>
-</div>
-<div id="tempLoginDiv">
-    <h3>Temporary Login Testing</h3>
-    <input type = "text" id="loginUsername" placeholder="Username" /><br/>
-    <input type="password" id="loginPassword" placeholder="Password"/><br />
-    <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
-    <span id="loginResult"></span>
-</div>
+    <div class ="tempRegisterDiv">
+        <h3 class = "title">Registration</h3>
+        <input type = "text" id="registerFirst" placeholder="First Name" /><br/>
+        <input type = "text" id="registerLast" placeholder="Last Name" /><br/>
+        <input type = "text" id="registerUsername" placeholder="Username" /><br/>
+        <input type="password" id="registerPassword" placeholder="Password"/><br />
+        <button type="button" class = "registerButton" class="buttons" onclick="doRegister();"> Register </button>
+        <span id="registerResult"></span>
+    </div>
+
+    <div class ="tempLoginDiv">
+        <h3 class = title>Login</h3>
+        <input type = "text" id="loginUsername" placeholder="Username" /><br/>
+        <input type="password" id = "loginPassword" placeholder="Password"/><br />
+        <button type="button" class = "loginButton" class="buttons" onclick="doLogin();"> Login </button>
+        <span id="loginResult"></span>
+    </div>
+</body>
 <html>
