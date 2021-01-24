@@ -13,10 +13,20 @@
     </h1>
 </body>
 
+<div id="tempRegisterDiv">
+    <h3>Temporary Registration Testing</h3>
+    <input type = "text" id="registerFirst" placeholder="First Name" /><br/>
+    <input type = "text" id="registerLast" placeholder="Last Name" /><br/>
+    <input type = "text" id="registerUsername" placeholder="Username" /><br/>
+    <input type="password" id="registerPassword" placeholder="Password"/><br />
+    <button type="button" id="registerButton" class="buttons" onclick="doRegister();"> Register </button>
+    <span id="registerResult"></span>
+</div>
 <div id="tempLoginDiv">
-    <input type = "text" id="loginName" placeholder="Username" /><br/>
+    <h3>Temporary Login Testing</h3>
+    <input type = "text" id="loginUsername" placeholder="Username" /><br/>
     <input type="password" id="loginPassword" placeholder="Password"/><br />
-    <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
+    <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
     <span id="loginResult"></span>
 </div>
 <html>
