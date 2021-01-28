@@ -6,7 +6,7 @@
     $lastName = $inData["lastName"];
     $phone = $inData["phone"];
     $email = $inData["email"];
-    $userID = $inData["UserID"];
+    $userID = $inData["userID"];
 
 	$conn = new mysqli("localhost", "Jarvis", "jadipCOP4331", "contact_manager");
 	if ($conn->connect_error) 

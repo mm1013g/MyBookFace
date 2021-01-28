@@ -13,7 +13,7 @@
 	} 
 	else
 	{
-		$sql = "SELECT * FROM contacts WHERE FirstName LIKE '%" . $inData["search"] . "%' or LastName LIKE '%" . $inData["search"] . "%' and UserID=" . $inData["userid"];
+		$sql = "SELECT * FROM contacts WHERE (FirstName LIKE '%" . $inData["search"] . "%' or LastName LIKE '%" . $inData["search"] . "%') AND UserID=" . $inData["userID"];
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
@@ -34,15 +34,15 @@
 				}';
 
 			}
+			returnWithInfo( $searchResults, "");
 		}
 		else
 		{
-			returnWithError( "No Records Found" );
+			returnWithInfo("", "No Records Found" );
 		}
 		$conn->close();
 	}
 
-	returnWithInfo( $searchResults );
 
 	function getRequestInfo()
 	{
@@ -61,9 +61,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $searchResults )
+	function returnWithInfo( $searchResults, $err)
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		$retValue = '{"results":[' . $searchResults . '],"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

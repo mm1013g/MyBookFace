@@ -13,7 +13,7 @@
 	} 
 	else
 	{
-		$sql = "SELECT * FROM contacts WHERE UserID=" . $inData["userid"];
+		$sql = "SELECT * FROM contacts WHERE UserID=" . $inData["userID"];
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{

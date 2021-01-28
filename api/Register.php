@@ -7,7 +7,6 @@
     $lastName = $inData["lastName"];
     $login = $inData["login"];
     $password = $inData["password"];
-	// returnWithInfo($firstName, $lastName, $id);
 
 	$conn = new mysqli("localhost", "Jarvis", "jadipCOP4331", "contact_manager");
 	if ($conn->connect_error) 

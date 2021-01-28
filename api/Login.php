@@ -14,7 +14,6 @@
 	} 
 	else
 	{
-		// $sql = "SELECT ID,FirstName,LastName FROM Users where Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
 		$sql = "SELECT ID,FirstName,LastName FROM users WHERE Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
