@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyBookFace</title>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+</head>
+
+<body style="background-color:#101010;">
+    <h1>
+        <span style="color:white;">My</span><span style="color:#3B5998;">BookFace</style>
+    </h1>
+
+    <div class ="tempRegisterDiv">
+      <br />
+      <a class = "nav" href="index.html">Login</a>
+      <a href="register.html"> Register</a>
+      <br /><br />
+        <label for = "registerFirst">First Name:</label><br />
+        <input type = "text" id="registerFirst" placeholder="First Name" /><br/>
+        <label for = "registerLast">Last Name:</label><br />
+        <input type = "text" id="registerLast" placeholder="Last Name" /><br/>
+        <label for = "registerUsername">Username:</label><br />
+        <input type = "text" id="registerUsername" placeholder="Username" /><br/>
+        <label for = "registerPassword">Password:</label><br />
+        <input type="password" id="registerPassword" placeholder="Password"/><br />
+        <button type="button" class = "registerButton" class="buttons" onclick="doRegister();"> Register </button>
+        <span id="registerResult"></span>
+    </div>
+</body>
+<html>

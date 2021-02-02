@@ -8,25 +8,18 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 
-<body style="background-color:#101010;">
+<body>
     <h1>
         <span style="color:white;">My</span><span style="color:#3B5998;">BookFace</style>
     </h1>
 
-    <div class ="tempRegisterDiv">
-        <h3 class = "title">Registration</h3>
-        <input type = "text" id="registerFirst" placeholder="First Name" /><br/>
-        <input type = "text" id="registerLast" placeholder="Last Name" /><br/>
-        <input type = "text" id="registerUsername" placeholder="Username" /><br/>
-        <input type="password" id="registerPassword" placeholder="Password"/><br />
-        <button type="button" class = "registerButton" class="buttons" onclick="doRegister();"> Register </button>
-        <span id="registerResult"></span>
-    </div>
-
     <div class ="tempLoginDiv">
-        <h3 class = title>Login</h3>
-        <input type = "text" id="loginUsername" placeholder="Username" /><br/>
-        <input type="password" id = "loginPassword" placeholder="Password"/><br />
+      <br /><a href="index.html">Login</a>
+      <a class = "nav" href="register.html"> Register</a>  <br /><br />
+        <label for = "Username">Username:</label><br />
+        <input type = "text" id="loginUsername" placeholder="Username" /><br/><br />
+        <label for = "password">Password:</label><br />
+        <input type="password" id = "loginPassword" placeholder="Password"/><br /><br />
         <button type="button" class = "loginButton" class="buttons" onclick="doLogin();"> Login </button>
         <span id="loginResult"></span>
     </div>

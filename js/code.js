@@ -7,27 +7,27 @@ function doRegister()
     var lastName = document.getElementById("registerLast").value;
     var login = document.getElementById("registerUsername").value;
     var password = document.getElementById("registerPassword").value;
-    
+
     document.getElementById("registerResult").innerHTML = "";
 
     // var jsonPayload = '{'"firstname" : ' + firstName + "login" : "' + login + '", "password" : "' + password + '"}';
     var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "login" : "' + login + '", "password" : "' + password + '"}';
     var url = urlBase + '/Register.' + extension;
-    
+
     var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
 		xhr.send(jsonPayload);
-		
+
 		var jsonObject = JSON.parse( xhr.responseText );
-		
+
         userId = jsonObject.id;
         firstName = jsonObject.firstName;
         lastName = jsonObject.lastName;
         // console.log(jsonObject.firstName);
-		
+
 		if( userId < 1 )
 		{
 			document.getElementById("registerResult").innerHTML = "Something went wrong";
@@ -37,12 +37,12 @@ function doRegister()
         {
             document.getElementById("registerResult").innerHTML = "Successfully Registered " + firstName + " " + lastName;
         }
-		
+
 		// firstName = jsonObject.firstName;
 		// lastName = jsonObject.lastName;
 
 		// saveCookie();
-	
+
 		// window.location.href = "color.html";
 	}
 	catch(err)
@@ -56,11 +56,11 @@ function doLogin()
 	userId = 0;
 	firstName = "";
 	lastName = "";
-	
+
 	var login = document.getElementById("loginUsername").value;
 	var password = document.getElementById("loginPassword").value;
  	var hash = md5( password );
-	
+
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
@@ -73,22 +73,22 @@ function doLogin()
 	try
 	{
 		xhr.send(jsonPayload);
-		
+
 		var jsonObject = JSON.parse( xhr.responseText );
-		
+
 		userId = jsonObject.id;
-		
+
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
 		}
-		
+
 		firstName = jsonObject.firstName;
 		lastName = jsonObject.lastName;
 
 		saveCookie();
-	
+
 		// window.location.href = "color.html";
 		document.getElementById("loginResult").innerHTML = "Successfully Logged In, Welcome back " + firstName + " " + lastName;
 	}
@@ -103,7 +103,7 @@ function saveCookie()
 {
 	var minutes = 20;
 	var date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
+	date.setTime(date.getTime()+(minutes*60*1000));
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
@@ -112,7 +112,7 @@ function readCookie()
 	userId = -1;
 	var data = document.cookie;
 	var splits = data.split(",");
-	for(var i = 0; i < splits.length; i++) 
+	for(var i = 0; i < splits.length; i++)
 	{
 		var thisOne = splits[i].trim();
 		var tokens = thisOne.split("=");
@@ -129,7 +129,7 @@ function readCookie()
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-	
+
 	if( userId < 0 )
 	{
 		window.location.href = "index.html";
@@ -158,19 +158,19 @@ function addContact()
     var email = document.getElementById("registerEmail").value;
 
 	document.getElementById("contactAddResult").innerHTML = "";
-    
+
     var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "phone" : "' + phone + '", "email" : "' + email + '", "userId" : ' + userId + '}';
 	//var jsonPayload = '{"contact" : "' + newContact + '", "userId" : ' + userId + '}';
 	var url = urlBase + '/AddContact.' + extension;
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
+		xhr.onreadystatechange = function()
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 			}
@@ -181,31 +181,31 @@ function addContact()
 	{
 		document.getElementById("contactAddResult").innerHTML = err.message;
 	}
-	
+
 }
 
 function searchContacts()
 {
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
-	
+
 	var contactList = "";
-	
+
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 	var url = urlBase + '/SearchContacts.' + extension;
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
+		xhr.onreadystatechange = function()
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
-				
+
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
 					contactList += jsonObject.results[i];
@@ -214,7 +214,7 @@ function searchContacts()
 						contactList += "<br />\r\n";
 					}
 				}
-				
+
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
@@ -224,5 +224,5 @@ function searchContacts()
 	{
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
-	
+
 }
