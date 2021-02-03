@@ -1,6 +1,9 @@
 var urlBase = 'http://mybookface.rocks/api';
 var extension = 'php';
 
+// const urlParams = new URLSearchParams(window.location.search);
+// const userID = urlParams.get('userID');
+
 function addContact()
 {
 	var id = 0;
@@ -11,11 +14,38 @@ function addContact()
 
 	var contact = {
 		id : id,
-		firstname: first,
-		lastname: last,
+		firstName: first,
+		lastName: last,
 		email: email,
 		phone: phone
 	};
+
+	// document.getElementById("contactAddResult").innerHTML = "";
+
+    // var jsonPayload = '{"firstName" : "' + first + '", "lastName" : "' + last + '", "phone" : "' + phone + '", "email" : "' + email + '", "userID" : ' + userID + '}';
+	// var url = urlBase + '/AddContact.' + extension;
+
+	// var xhr = new XMLHttpRequest();
+	// xhr.open("POST", url, true);
+	// xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	// try
+	// {
+	// 	xhr.onreadystatechange = function()
+	// 	{
+	// 		if (this.readyState == 4 && this.status == 200)
+	// 		{
+	// 			document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+	// 			var jsonObject = JSON.parse( xhr.responseText );
+	// 			contact.id= jsonObject.id;
+	// 			placeContact(contact);
+	// 		}
+	// 	};
+	// 	xhr.send(jsonPayload);
+	// }
+	// catch(err)
+	// {
+	// 	document.getElementById("contactAddResult").innerHTML = err.message;
+	// }
 
 	placeContact(contact);
 }
@@ -27,8 +57,39 @@ function searchContacts()
 	
 	var contactList = "";
 	
-	var jsonPayload = '{"search" : "' + srch + '","userID" : ' + 46 + '}';
+	var jsonPayload = '{"search" : "' + srch + '","userID" : ' + userID + '}';
 	var url = urlBase + '/Search.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8;");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
+				var jsonObject = JSON.parse( xhr.responseText );
+				var contactObjects = jsonObject.results;
+				displayContacts(contactObjects);
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}
+	
+}
+
+function displayAll(){
+
+	var contactList = "";
+	
+	var jsonPayload = '{"userID" : ' + userID + '}';
+	var url = urlBase + '/GetContacts.' + extension;
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -70,28 +131,45 @@ function placeContact(contact)
 	editButton.appendChild(document.createTextNode("Edit"));
 	editButton.classList.add("editButton");
 	editButton.type = "button";
-	// editButton.onclick = "doEdit("+contact.id+");";
-	editButton.setAttribute('onclick', "doEdit("+contact.id+")");
-	
+	editButton.setAttribute('onclick', "editContact("+contact.id+")");
+	var deleteButton = document.createElement("button");
+	deleteButton.appendChild(document.createTextNode("Delete"));
+	deleteButton.classList.add("deleteButton");
+	deleteButton.type = "button";
+	deleteButton.setAttribute('onclick', "deleteContact("+contact.id+")");
+
 	contactDiv.appendChild(nameP);
 	contactDiv.appendChild(emailP);
 	contactDiv.appendChild(phoneP);
 	contactDiv.appendChild(editButton);
+	contactDiv.appendChild(deleteButton);
 
 	contactList.appendChild(contactDiv);
 }
 
-function displayContacts(arr)
-{
+function displayContacts(arr){
+	clearContacts();
 	arr.forEach(contact =>{
 		placeContact(contact);
 	});
 }
 
-function doEdit(id)
+function clearContacts(){
+	var contactList = document.getElementById("contactList");
+	while(contactList.firstChild){
+		contactList.removeChild(contactList.firstChild);
+	}
+}
+
+function editContact(id)
 {
-	contactDiv = document.getElementById(id);
+	var contactDiv = document.getElementById(id);
 	// contactDiv.contentEditable = "true";
 	contactDiv.setAttribute("contentEditable", "true");
 	console.log(id);
+}
+
+function deleteContact(id){
+	console.log("deleting contact id: " + id);
+	document.getElementById(id).remove();
 }

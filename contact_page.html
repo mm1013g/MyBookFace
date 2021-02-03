@@ -2,9 +2,8 @@
 <html>
 <head>
     <title>MyBookFace</title>
-    <!-- <script type="text/javascript" src="js/md5.js"></script> -->
     <script type="text/javascript" src="js/code.js"></script>
-    <script type="text/javascript" src="js/contact_page_code.js"></script>
+    <script type="text/javascript" src="js/contactpage.js"></script>
 
     <link href="css/contact_styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -23,33 +22,24 @@
             <input type = "text" id="addEmail" placeholder="Email" /><br/>
             <input type="text" id="addPhone" placeholder="Phone"/><br />
             <button type="button" class = "addButton" class="buttons" onclick="addContact();"> Add </button>
-            <span id="addResult"></span>
+            <span id="contactAddResult"></span>
         </div>
         <div class ="contactSearch">
             <h3 class = "title">Search Contacts</h3>
             <input type = "text" id="searchText" placeholder="Search by first or last name" /><br/>
             <button type="button" class = "searchButton" class="buttons" onclick="searchContacts();"> Search </button>
-            <button type="button" class = "searchButton" class="buttons" onclick="doDisplayAll();"> View All </button>
+            <button type="button" class = "displayButton" class="buttons" onclick="displayAll();"> View All </button>
+            <button type="button" class = "clearButton" class="buttons" onclick="clearContacts();"> Clear </button>
             <span id="contactSearchResult"></span>
         </div>
     </div>
     <div class="contactList" id="contactList">
-        <!-- <div class="contactBox">
-            <div>
-
-            </div>
+        <div class="contactBox" id=0>
             <p>First Last</p>
             <p>Email</p>
             <p>Phone</p>
-            <button type="button" class = "editButton" class="buttons" onclick="doEdit();"> Edit </button>
+            <button type="button" class="editButton" class="buttons" onclick="editContact(0);"> Edit </button>
         </div>
-        <div class="contactBox">
-            <p>First Last</p>
-            <p>Email</p>
-            <p>Phone</p>
-            <button type="button" class = "editButton" class="buttons" onclick="doEdit();"> Edit </button>
-        </div> -->
     </div>
-    
 </body>
 <html>

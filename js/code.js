@@ -1,5 +1,6 @@
 var urlBase = 'http://mybookface.rocks/api';
 var extension = 'php';
+var userID;
 
 function doRegister()
 {
@@ -59,12 +60,13 @@ function doLogin()
 
 	var login = document.getElementById("loginUsername").value;
 	var password = document.getElementById("loginPassword").value;
- 	var hash = md5( password );
+	
+	// Possibly use later, doesn't care about security for now
+	// var hash = md5( password );
 
 	document.getElementById("loginResult").innerHTML = "";
 
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
-	// var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
+	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = urlBase + '/Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -76,7 +78,7 @@ function doLogin()
 
 		var jsonObject = JSON.parse( xhr.responseText );
 
-		userId = jsonObject.id;
+		userID = jsonObject.id;
 
 		if( userId < 1 )
 		{
@@ -91,6 +93,7 @@ function doLogin()
 
 		// window.location.href = "color.html";
 		document.getElementById("loginResult").innerHTML = "Successfully Logged In, Welcome back " + firstName + " " + lastName;
+		window.location.href = "contact_page.html?userID=" + userID;
 	}
 	catch(err)
 	{
