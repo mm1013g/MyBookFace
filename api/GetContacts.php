@@ -34,15 +34,17 @@
 				}';
 
 			}
+			returnWithInfo( $searchResults, "");
 		}
 		else
 		{
-			returnWithError( "No Records Found" );
+			returnWithInfo("", "No Records Found" );
+			return;
 		}
 		$conn->close();
 	}
 
-	returnWithInfo( $searchResults );
+	
 
 	function getRequestInfo()
 	{
@@ -61,9 +63,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $searchResults )
+	function returnWithInfo( $searchResults, $err)
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		$retValue = '{"results":[' . $searchResults . '],"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

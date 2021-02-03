@@ -1,8 +1,8 @@
 var urlBase = 'http://mybookface.rocks/api';
 var extension = 'php';
 
-// const urlParams = new URLSearchParams(window.location.search);
-// const userID = urlParams.get('userID');
+const urlParams = new URLSearchParams(window.location.search);
+const USERID = urlParams.get('userID');
 
 function addContact()
 {
@@ -14,40 +14,38 @@ function addContact()
 
 	var contact = {
 		id : id,
-		firstName: first,
-		lastName: last,
+		firstname: first,
+		lastname: last,
 		email: email,
 		phone: phone
 	};
 
-	// document.getElementById("contactAddResult").innerHTML = "";
+	document.getElementById("contactAddResult").innerHTML = "";
 
-    // var jsonPayload = '{"firstName" : "' + first + '", "lastName" : "' + last + '", "phone" : "' + phone + '", "email" : "' + email + '", "userID" : ' + userID + '}';
-	// var url = urlBase + '/AddContact.' + extension;
+    var jsonPayload = '{"firstName" : "' + first + '", "lastName" : "' + last + '", "phone" : "' + phone + '", "email" : "' + email + '", "userID" : ' + USERID + '}';
+	var url = urlBase + '/CreateContact.' + extension;
 
-	// var xhr = new XMLHttpRequest();
-	// xhr.open("POST", url, true);
-	// xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	// try
-	// {
-	// 	xhr.onreadystatechange = function()
-	// 	{
-	// 		if (this.readyState == 4 && this.status == 200)
-	// 		{
-	// 			document.getElementById("contactAddResult").innerHTML = "Contact has been added";
-	// 			var jsonObject = JSON.parse( xhr.responseText );
-	// 			contact.id= jsonObject.id;
-	// 			placeContact(contact);
-	// 		}
-	// 	};
-	// 	xhr.send(jsonPayload);
-	// }
-	// catch(err)
-	// {
-	// 	document.getElementById("contactAddResult").innerHTML = err.message;
-	// }
-
-	placeContact(contact);
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+				var jsonObject = JSON.parse( xhr.responseText );
+				contact.id= jsonObject.id;
+				placeContact(contact);
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactAddResult").innerHTML = err.message;
+	}
 }
 
 function searchContacts()
@@ -57,7 +55,7 @@ function searchContacts()
 	
 	var contactList = "";
 	
-	var jsonPayload = '{"search" : "' + srch + '","userID" : ' + userID + '}';
+	var jsonPayload = '{"search" : "' + srch + '","userID" : ' + USERID + '}';
 	var url = urlBase + '/Search.' + extension;
 	
 	var xhr = new XMLHttpRequest();
@@ -88,7 +86,7 @@ function displayAll(){
 
 	var contactList = "";
 	
-	var jsonPayload = '{"userID" : ' + userID + '}';
+	var jsonPayload = '{"userID" : ' + USERID + '}';
 	var url = urlBase + '/GetContacts.' + extension;
 	
 	var xhr = new XMLHttpRequest();

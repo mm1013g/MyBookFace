@@ -75,25 +75,28 @@ function doLogin()
 	try
 	{
 		xhr.onreadystatechange = function() {
-			var jsonObject = JSON.parse( xhr.responseText );
-
-			userID = jsonObject.id;
-
-			if( userId < 1 )
+			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-				return;
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				userID = jsonObject.id;
+
+				if( userID < 1 )
+				{
+					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					return;
+				}
+
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+
+				saveCookie();
+
+				// window.location.href = "color.html";
+				document.getElementById("loginResult").innerHTML = "Successfully Logged In, Welcome back " + firstName + " " + lastName;
+				window.location.href = "contact_page.html?userID=" + userID;
 			}
-
-			firstName = jsonObject.firstName;
-			lastName = jsonObject.lastName;
-
-			saveCookie();
-
-			// window.location.href = "color.html";
-			document.getElementById("loginResult").innerHTML = "Successfully Logged In, Welcome back " + firstName + " " + lastName;
-			window.location.href = "contact_page.html?userID=" + userID;
-		}
+		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
