@@ -1,0 +1,99 @@
+.title
+{
+  font-size: 200%;
+  position: sticky;
+  top: 10px;
+}
+
+
+.contactControls
+{
+    position: sticky;
+    margin: auto;
+    display: table;
+    background-color: #fafafa;
+    border: 3px solid #101010;
+    color: white;
+    width: 60%;
+    top: 10px;
+    /* height: 30%; */
+    /* padding-top: 1px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px; */
+    text-align:center;
+    overflow: auto;
+}
+.contactSearch
+{
+  /* margin: 1%; */
+  position: sticky;
+  background-color: #3B5998;
+  border: 3px solid #101010;
+  color: white;
+  width: 50%;
+  display: table-cell;
+  /* padding-top: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 1%; */
+  text-align:center;
+  /* float: left; */
+  /* overflow: auto; */
+}
+.contactAdd
+{
+  /* margin: 1%; */
+  position: sticky;
+  background-color: #3B5998;
+  border: 3px solid #101010;
+  color: white;
+  width: 50%;
+  display: table-cell;
+  /* padding-top: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 1%; */
+  text-align:center;
+}
+
+.addButton
+{
+  margin: 4px;
+  cursor: pointer;
+}
+.searchButton
+{
+  margin: 4px;
+  cursor: pointer;
+}
+
+
+.contactList
+{
+    margin: auto;
+    display: table;
+    background-color: #3B5998;
+    border: 3px solid #101010;
+    color: white;
+    width: 60%;
+    height: 30%;
+    padding-top: 1px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    text-align:center;
+    overflow: auto;
+}
+
+.contactBox
+{
+    display: inline-block;
+    margin: 3%;
+    background-color: #355394;
+    border: 3px solid #101010;
+    color: white;
+    width: 75%;
+    text-align:center;
+    font-size: larger;
+}
