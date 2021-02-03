@@ -70,30 +70,31 @@ function doLogin()
 	var url = urlBase + '/Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, false);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8;");
 	try
 	{
-		xhr.send(jsonPayload);
+		xhr.onreadystatechange = function() {
+			var jsonObject = JSON.parse( xhr.responseText );
 
-		var jsonObject = JSON.parse( xhr.responseText );
+			userID = jsonObject.id;
 
-		userID = jsonObject.id;
+			if( userId < 1 )
+			{
+				document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+				return;
+			}
 
-		if( userId < 1 )
-		{
-			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-			return;
+			firstName = jsonObject.firstName;
+			lastName = jsonObject.lastName;
+
+			saveCookie();
+
+			// window.location.href = "color.html";
+			document.getElementById("loginResult").innerHTML = "Successfully Logged In, Welcome back " + firstName + " " + lastName;
+			window.location.href = "contact_page.html?userID=" + userID;
 		}
-
-		firstName = jsonObject.firstName;
-		lastName = jsonObject.lastName;
-
-		saveCookie();
-
-		// window.location.href = "color.html";
-		document.getElementById("loginResult").innerHTML = "Successfully Logged In, Welcome back " + firstName + " " + lastName;
-		window.location.href = "contact_page.html?userID=" + userID;
+		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
