@@ -104,7 +104,7 @@ function doLogin()
 
 				if( userID < 1 )
 				{
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					document.getElementById("loginResult").innerHTML = "ERROR: Username/Password combination is incorrect";
 					return;
 				}
 
