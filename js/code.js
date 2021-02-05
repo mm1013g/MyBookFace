@@ -10,6 +10,27 @@ function doRegister()
     var password = document.getElementById("registerPassword").value;
 
     document.getElementById("registerResult").innerHTML = "";
+    if (isEmpty(firstName))
+    {
+      document.getElementById("registerResult").innerHTML = "ERROR: First name conatins spaces or is empty";
+      return;
+    }
+    if (isEmpty(lastName))
+    {
+      document.getElementById("registerResult").innerHTML = "ERROR: Last Name conatins spaces or is empty";
+      return;
+    }
+    if (isEmpty(login))
+    {
+      document.getElementById("registerResult").innerHTML = "\nERROR: Username conatins spaces or is empty";
+      return;
+    }
+    if (isEmpty(password))
+    {
+      document.getElementById("registerResult").innerHTML = "ERROR: Password conatins spaces or is empty";
+      return;
+    }
+
 
     // var jsonPayload = '{'"firstname" : ' + firstName + "login" : "' + login + '", "password" : "' + password + '"}';
     var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "login" : "' + login + '", "password" : "' + password + '"}';
@@ -60,7 +81,7 @@ function doLogin()
 
 	var login = document.getElementById("loginUsername").value;
 	var password = document.getElementById("loginPassword").value;
-	
+
 	// Possibly use later, doesn't care about security for now
 	// var hash = md5( password );
 
@@ -75,7 +96,7 @@ function doLogin()
 	try
 	{
 		xhr.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) 
+			if (this.readyState == 4 && this.status == 200)
 			{
 				var jsonObject = JSON.parse( xhr.responseText );
 
@@ -231,5 +252,16 @@ function searchContacts()
 	{
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
+}
 
+
+function isEmpty(p1)
+{
+  if (p1.length == 0)
+    return true;
+  for (var i = 0; i < p1.length; i++)
+  {
+    if (p1.charAt(i) == " ")
+      return true;
+  }
 }

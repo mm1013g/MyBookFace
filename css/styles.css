@@ -68,3 +68,8 @@ a.nav:link, a.nav:visited
   text-decoration: none;
   display: inline-block;
 }
+
+.error
+{
+  color: red;
+}
