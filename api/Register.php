@@ -15,16 +15,23 @@
 	} 
 	else
 	{
+		// Check if login already exists:
+		$sql = "SELECT * FROM users WHERE Login='" . $login . "'";
+		$result = $conn->query($sql);
+		if($result->num_rows > 0)
+		{
+			returnWithError("User already exists");
+			$conn->close();
+			return;
+		}
+
 		$sql = "INSERT INTO users (Login, Password, FirstName, LastName) VALUES ('$login', '$password', '$firstName', '$lastName')";
 		$result = $conn->query($sql);
-		// returnWithError($result);
 
 		if ($result == 1)
 		{
 			$sql = "SELECT FirstName, LastName, ID FROM users WHERE Login='$login'";
 			$result = $conn->query($sql);
-			// returnWithError($result);
-			// returnWithError(1);
 
 			$row = $result->fetch_assoc();
 			
@@ -36,7 +43,7 @@
 		}
 		else
 		{
-			returnWithError( "Issue when registration." );
+			returnWithError( "Issue with registration." );
 		}
 		$conn->close();
 	}
