@@ -2,7 +2,7 @@
 
 	$inData = getRequestInfo();
     
-    $ID = $inData["ID"];
+    $ID = $inData["contactID"];
 
 	$conn = new mysqli("localhost", "Jarvis", "jadipCOP4331", "contact_manager");
 	if ($conn->connect_error) 
@@ -25,16 +25,16 @@
             $result = $conn->query($sql);
             if ($result == 1)
             {
-                returnResultWithMessage("true","Successfully edited contact.");
+                returnResultWithMessage(true, "Successfully edited contact.");
             }
             else
             {
-                returnResultWithMessage("false","Issue with contact edit.");
+                returnResultWithMessage(false, "Issue with contact edit.");
             }
 		}
 		else
 		{
-			returnResultWithMessage("false","Could not find contact to edit.");
+			returnResultWithMessage(false, "Could not find contact to edit.");
 		}
 		$conn->close();
 	}
@@ -47,24 +47,20 @@
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
-		echo $obj;
+		echo json_encode($obj);
 	}
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"error","lastName":"","error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
-	
-	function returnWithInfo( $firstName, $lastName, $id )
-	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue->result = false;
+		$retValue->message = $err;
 		sendResultInfoAsJson( $retValue );
 	}
     
     function returnResultWithMessage($result, $message)
     {
-        $retValue = '{"result" : ' . $result . ', "message" : "' . $message . '"}';
+		$retValue->result = $result;
+		$retValue->message = $message;
         sendResultInfoAsJson($retValue);
     }
 ?>

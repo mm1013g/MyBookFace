@@ -1,8 +1,7 @@
 <?php
-
 	$inData = getRequestInfo();
 	
-	$searchResults = "";
+	$searchResults = array();
 	$searchCount = 0;
 
 	$conn = new mysqli("localhost", "Jarvis", "jadipCOP4331", "contact_manager");
@@ -19,30 +18,22 @@
 		{
 			while($row = $result->fetch_assoc())
 			{
-				if( $searchCount > 0 )
-				{
-					$searchResults .= ",";
-				}
+				$searchResults[$searchCount]->contactID = intval($row["ID"]);
+				$searchResults[$searchCount]->firstName = $row["FirstName"];
+				$searchResults[$searchCount]->lastName = $row["LastName"];
+				$searchResults[$searchCount]->phone = $row["Phone"];
+				$searchResults[$searchCount]->email = $row["Email"];
 				$searchCount++;
-				$searchResults .= '
-				{
-					"id" 		:  ' . $row["ID"] 			. ',
-					"firstname" : "' . $row["FirstName"]	. '",
-					"lastname" 	: "' . $row["LastName"]		. '",
-					"phone"		: "' . $row["Phone"] 		. '",
-					"email"		: "' . $row["Email"] 		. '"
-				}';
-
 			}
-			returnWithInfo( $searchResults, "");
+			returnWithInfo($searchResults, "");
 		}
 		else
 		{
-			returnWithInfo("", "No Records Found" );
+			returnWithError("No Records Found" );
+			return;
 		}
 		$conn->close();
 	}
-
 
 	function getRequestInfo()
 	{
@@ -52,18 +43,20 @@
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
-		echo $obj;
+		echo json_encode($obj);
 	}
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue->results = [];
+		$retValue->error = $err;
 		sendResultInfoAsJson( $retValue );
 	}
 	
 	function returnWithInfo( $searchResults, $err)
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":"' . $err . '"}';
+		$retValue->results = $searchResults;
+		$retValue->error = $err;
 		sendResultInfoAsJson( $retValue );
 	}
 	

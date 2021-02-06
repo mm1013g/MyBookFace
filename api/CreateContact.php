@@ -20,14 +20,14 @@
 
 		if ($result == 1)
 		{
-			$sql = "SELECT FirstName, LastName, UserID FROM contacts WHERE FirstName='$firstName' and LastName='$lastName' and UserID=$userID";
+			$sql = "SELECT FirstName, LastName, UserID, ID FROM contacts WHERE FirstName='$firstName' and LastName='$lastName' and UserID=$userID";
 			$result = $conn->query($sql);
 
 			$row = $result->fetch_assoc();
 			
 			$firstName = $row["FirstName"];
 			$lastName = $row["LastName"];
-			$id = $row["UserID"];
+			$id = $row["ID"];
 			
 			returnWithInfo($firstName, $lastName, $id);
 		}
@@ -46,18 +46,22 @@
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
-		echo $obj;
+		echo json_encode($obj);
 	}
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"error","lastName":"","error":"' . $err . '"}';
+		$retValue->contactID = 0;
+		$retValue->error = $err;
 		sendResultInfoAsJson( $retValue );
 	}
 	
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue->contactID = intval($id);
+		$retValue->firstName = $firstName;
+		$retValue->lastName = $lastName;
+		$retValue->error = "";
 		sendResultInfoAsJson( $retValue );
 	}
 	

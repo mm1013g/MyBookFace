@@ -1,7 +1,5 @@
 <?php
-
 	$inData = getRequestInfo();
-	
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
@@ -40,18 +38,22 @@
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
-		echo $obj;
+		echo json_encode($obj);
 	}
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue->userID = 0;
+		$retValue->error = $err;
 		sendResultInfoAsJson( $retValue );
 	}
 	
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue->userID = intval($id);
+		$retValue->firstName = $firstName;
+		$retValue->lastName = $lastName;
+		$retValue->error = "";
 		sendResultInfoAsJson( $retValue );
 	}
 	
