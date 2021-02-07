@@ -19,7 +19,7 @@
         <input type = "text" id="loginUsername" placeholder="Username" /><br/><br />
         <label for = "password">Password:</label><br />
         <input type="password" id = "loginPassword" placeholder="Password"/><br /><br />
-        <button type="button" class = "loginButton" class="buttons" onclick="doLogin();"> Login </button>
+        <button type="button" class = "loginButton" class="buttons" onclick="doLogin();"> Login </button>><br />
         <script>
             let elem = document.getElementById("loginDiv");
             elem.onkeyup = function(e){
@@ -28,7 +28,7 @@
                 }
             }
         </script>
-        <span id="loginResult"></span>
+        <span class="error" id="loginResult"></span>
     </div>
 </body>
 <html>

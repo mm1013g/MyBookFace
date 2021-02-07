@@ -1,4 +1,5 @@
 var urlBase = 'http://mybookface.rocks/api';
+
 const extension = 'php';
 let userID;
 let firstName;
@@ -11,6 +12,26 @@ function doRegister() {
 	let password = document.getElementById("registerPassword").value;
 
 	document.getElementById("registerResult").innerHTML = "";
+    if (isEmpty(firstName))
+    {
+      document.getElementById("registerResult").innerHTML = "ERROR: First name conatins spaces or is empty";
+      return;
+    }
+    if (isEmpty(lastName))
+    {
+      document.getElementById("registerResult").innerHTML = "ERROR: Last Name conatins spaces or is empty";
+      return;
+    }
+    if (isEmpty(login))
+    {
+      document.getElementById("registerResult").innerHTML = "\nERROR: Username conatins spaces or is empty";
+      return;
+    }
+    if (isEmpty(password))
+    {
+      document.getElementById("registerResult").innerHTML = "ERROR: Password conatins spaces or is empty";
+      return;
+    }
 
 	// const jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "login" : "' + login + '", "password" : "' + password + '"}';
 	const jsonPayload = JSON.stringify({
@@ -24,6 +45,7 @@ function doRegister() {
 
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
+
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try {
 		xhr.onreadystatechange = function () {
@@ -69,8 +91,8 @@ function doLogin() {
 	const url = urlBase + '/Login.' + extension;
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
-	// xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8;");
-	xhr.setRequestHeader("Content-type", "application/json;");
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8;");
+  
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
@@ -78,8 +100,10 @@ function doLogin() {
 
 				userID = jsonObject.userID;
 
-				if (userID < 1) {
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+				if( userID < 1 )
+				{
+					document.getElementById("loginResult").innerHTML = "ERROR: Username/Password combination is incorrect";
+
 					return;
 				}
 
@@ -139,4 +163,15 @@ function doLogout() {
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
+}
+
+function isEmpty(p1)
+{
+  if (p1.length == 0)
+    return true;
+  for (var i = 0; i < p1.length; i++)
+  {
+    if (p1.charAt(i) == " ")
+      return true;
+  }
 }
