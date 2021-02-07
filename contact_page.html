@@ -15,31 +15,42 @@
     </h1>
 
     <div class="contactControls">
-        <div class ="contactAdd">
+        <div class ="contactAdd" id="contactAdd">
             <h3 class="title">Add a contact</h3>
             <input type = "text" id="addFirst" placeholder="First Name" /><br/>
             <input type="text" id="addLast" placeholder="Last Name"/><br />
             <input type = "text" id="addEmail" placeholder="Email" /><br/>
             <input type="text" id="addPhone" placeholder="Phone"/><br />
             <button type="button" class = "addButton" class="buttons" onclick="addContact();"> Add </button>
+            <script>
+                elem = document.getElementById("contactAdd");
+                elem.onkeyup = function(e){
+                    if(e.keyCode ==13){
+                        addContact();
+                    }
+                }
+            </script>
             <span id="contactAddResult"></span>
         </div>
-        <div class ="contactSearch">
+        <div class ="contactSearch" id="contactSearch">
             <h3 class = "title">Search Contacts</h3>
             <input type = "text" id="searchText" placeholder="Search by first or last name" /><br/>
             <button type="button" class = "searchButton" class="buttons" onclick="searchContacts();"> Search </button>
             <button type="button" class = "displayButton" class="buttons" onclick="displayAll();"> View All </button>
             <button type="button" class = "clearButton" class="buttons" onclick="clearContacts();"> Clear </button>
+            <script>
+                elem = document.getElementById("contactSearch");
+                elem.onkeyup = function(e){
+                    if(e.keyCode ==13){
+                        searchContacts();
+                    }
+                }
+            </script>
+            <br>
             <span id="contactSearchResult"></span>
         </div>
     </div>
     <div class="contactList" id="contactList">
-        <!-- <div class="contactBox" id=0>
-            <p>First Last</p>
-            <p>Email</p>
-            <p>Phone</p>
-            <button type="button" class="editButton" class="buttons" onclick="editContact(0);"> Edit </button>
-        </div> -->
     </div>
 </body>
 <html>

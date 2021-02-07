@@ -1,7 +1,6 @@
 <?php
-
 	$inData = getRequestInfo();
-	
+
 	$id = 0;
 	$firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
@@ -15,16 +14,23 @@
 	} 
 	else
 	{
+		// Check if login already exists:
+		$sql = "SELECT * FROM users WHERE Login='" . $login . "'";
+		$result = $conn->query($sql);
+		if($result->num_rows > 0)
+		{
+			returnWithError("User already exists");
+			$conn->close();
+			return;
+		}
+
 		$sql = "INSERT INTO users (Login, Password, FirstName, LastName) VALUES ('$login', '$password', '$firstName', '$lastName')";
 		$result = $conn->query($sql);
-		// returnWithError($result);
 
 		if ($result == 1)
 		{
 			$sql = "SELECT FirstName, LastName, ID FROM users WHERE Login='$login'";
 			$result = $conn->query($sql);
-			// returnWithError($result);
-			// returnWithError(1);
 
 			$row = $result->fetch_assoc();
 			
@@ -36,7 +42,7 @@
 		}
 		else
 		{
-			returnWithError( "Issue when registration." );
+			returnWithError( "Issue with registration." );
 		}
 		$conn->close();
 	}
@@ -49,19 +55,22 @@
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
-		echo $obj;
+		echo json_encode($obj);
 	}
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"error","lastName":"","error":"' . $err . '"}';
+		$retValue->userID = 0;
+		$retValue->error = $err;
 		sendResultInfoAsJson( $retValue );
 	}
 	
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue->userID = intval($id);
+		$retValue->firstName = $firstName;
+		$retValue->lastName = $lastName;
+		$retValue->error = "";
 		sendResultInfoAsJson( $retValue );
 	}
-	
 ?>

@@ -12,18 +12,15 @@
 	} 
 	else
 	{
-		// $sql = "SELECT ID,FirstName,LastName FROM Users where Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
 		$sql = "SELECT Login FROM users WHERE Login='" . $inData["login"] . "'";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
-			$retValue = '{"result" : true}';
-            sendResultInfoAsJson($retValue);
+            returnResultWithMessage(true, "User already exists");
 		}
 		else
 		{
-            $retValue = '{"result" : false}';
-            sendResultInfoAsJson($retValue);
+            returnResultWithMessage(false, "User does not yet exist");
 		}
 		$conn->close();
 	}
@@ -36,19 +33,21 @@
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
-		echo $obj;
+		echo json_encode($obj);
 	}
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue->result = false;
+		$retValue->message = $err;
 		sendResultInfoAsJson( $retValue );
 	}
-	
-	function returnWithInfo( $firstName, $lastName, $id )
-	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
-		sendResultInfoAsJson( $retValue );
-	}
+    
+    function returnResultWithMessage($result, $message)
+    {
+		$retValue->result = $result;
+		$retValue->message = $message;
+        sendResultInfoAsJson($retValue);
+    }
 	
 ?>
