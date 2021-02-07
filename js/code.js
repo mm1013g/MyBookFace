@@ -1,5 +1,4 @@
-// var urlBase = 'http://mybookface.rocks/api';
-const urlBase = 'http://localhost:5000/api';
+var urlBase = 'http://mybookface.rocks/api';
 const extension = 'php';
 let userID;
 let firstName;
