@@ -1,4 +1,5 @@
 var urlBase = 'http://mybookface.rocks/api';
+// var urlBase = 'http://localhost:5000/api';
 
 const extension = 'php';
 let userID;
@@ -11,26 +12,30 @@ function doRegister() {
 	let login = document.getElementById("registerUsername").value;
 	let password = document.getElementById("registerPassword").value;
 
-	document.getElementById("registerResult").innerHTML = "";
+	// document.getElementById("registerResult").innerHTML = "";
     if (isEmpty(firstName))
     {
-      document.getElementById("registerResult").innerHTML = "ERROR: First name conatins spaces or is empty";
-      return;
+    //   document.getElementById("registerResult").innerHTML = "ERROR: First name conatins spaces or is empty";
+		addAlert("First name contains spaces or is empty");
+		return;
     }
     if (isEmpty(lastName))
     {
-      document.getElementById("registerResult").innerHTML = "ERROR: Last Name conatins spaces or is empty";
-      return;
+    //   document.getElementById("registerResult").innerHTML = "ERROR: Last Name conatins spaces or is empty";
+		addAlert("Last name contains spaces or is empty");
+    	return;
     }
     if (isEmpty(login))
     {
-      document.getElementById("registerResult").innerHTML = "\nERROR: Username conatins spaces or is empty";
+    	//document.getElementById("registerResult").innerHTML = "\nERROR: Username conatins spaces or is empty";
+		addAlert("Username contains spaces or is empty");
       return;
     }
     if (isEmpty(password))
     {
-      document.getElementById("registerResult").innerHTML = "ERROR: Password conatins spaces or is empty";
-      return;
+    	//document.getElementById("registerResult").innerHTML = "ERROR: Password conatins spaces or is empty";
+    	addAlert("Password contains spaces or is empty");
+		return;
     }
 
 	// const jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "login" : "' + login + '", "password" : "' + password + '"}';
@@ -57,18 +62,21 @@ function doRegister() {
 				lastName = jsonObject.lastName;
 
 				if (userID < 1) {
-					document.getElementById("registerResult").innerHTML = jsonObject.error;
+					// document.getElementById("registerResult").innerHTML = jsonObject.error;
+					addAlert(jsonObject.error);
 					return;
 				}
 				else {
-					document.getElementById("registerResult").innerHTML = "Successfully Registered " + firstName + " " + lastName;
+					// document.getElementById("registerResult").innerHTML = "Successfully Registered " + firstName + " " + lastName;
+					addSuccess("Successfully Registered " + firstName + " " + lastName);
 				}
 			}
 		}
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
-		document.getElementById("loginResult").innerHTML = err.message;
+		// document.getElementById("loginResult").innerHTML = err.message;
+		addAlert(err.message);
 	}
 }
 
@@ -79,8 +87,6 @@ function doLogin() {
 
 	const login = document.getElementById("loginUsername").value;
 	const password = document.getElementById("loginPassword").value;
-
-	document.getElementById("loginResult").innerHTML = "";
 
 	const jsonPayload = JSON.stringify({
 		'login': login,
@@ -102,26 +108,41 @@ function doLogin() {
 
 				if( userID < 1 )
 				{
-					document.getElementById("loginResult").innerHTML = "ERROR: Username/Password combination is incorrect";
-
+					addAlert("Invalid Username/Password combination");
 					return;
 				}
 
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
-				saveCookie();
+				// saveCookie();
 
-				document.getElementById("loginResult").innerHTML = "Successfully Logged In, Welcome back " + firstName + " " + lastName;
 				window.location.href = "contact_page.html?userID=" + userID;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
-		document.getElementById("loginResult").innerHTML = err.message;
+		addAlert(err.message);
 	}
 
+}
+
+function addAlert(message) {
+	$('#alerts').empty();
+	$('#alerts').append(
+		'<div class="col-3 alert alert-danger fade show" role="alert">' + message + '</div>');
+}
+
+function addSuccess(message) {
+	$('#alerts').empty();
+	$('#alerts').append(
+		'<div class="col-3 alert alert-success fade show" role="alert">' + message + '</div>');
+}
+
+function switchRegister() {
+	$('loginContainer').toggle();
+	$('registerContainer').toggle();
 }
 
 function saveCookie() {
