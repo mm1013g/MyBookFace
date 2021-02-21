@@ -44,7 +44,7 @@
             <h1>Search Contacts</h1>
             <form id="searchForm" onSubmit="return false;">
               <div class="mb-3">
-                <input type="text" placeholder="Search" class="form-control" id="searchText">
+                <input type="text" placeholder="Search" class="form-control" id="searchText" onkeyup="liveSearch()">
               </div>
                 <input type="button" class="btn btn-primary mb-3" onclick="searchContacts();" id="searchButton" value="Search">
                 <div class="form-check form-check-inline">
