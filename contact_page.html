@@ -16,7 +16,7 @@
       <div class="row text-center text-white">
         <div class="col-md">
             <h1>Add a contact</h1>
-            <form>
+            <form id="addForm">
                 <div class="mb-3">
                   <input type="text" placeholder="First Name" class="form-control" id="addFirst">
                 </div>
@@ -31,11 +31,21 @@
                 </div>
                 <input type="button" class="btn btn-primary mb-3" onclick="addContact();" id="addButton" value="Add">
             </form>
+            <script>
+              elem = document.getElementById("addForm");
+              elem.onkeyup = function(e){
+                  if(e.keyCode ==13){
+                      addContact();
+                  }
+              }
+            </script>
         </div>
         <div class="col-md">
             <h1>Search Contacts</h1>
-            <form class="form-inline ">
-                <input type="text" placeholder="Search" class="form-control mb-2" id="searchText" onkeyup="liveSearch();">
+            <form id="searchForm" onSubmit="return false;">
+              <div class="mb-3">
+                <input type="text" placeholder="Search" class="form-control" id="searchText">
+              </div>
                 <input type="button" class="btn btn-primary mb-3" onclick="searchContacts();" id="searchButton" value="Search">
                 <div class="form-check form-check-inline">
                   <input type="checkbox" class="form-check-input" id="liveSearchCheck" value="" checked>
@@ -45,6 +55,14 @@
                 </div>
             </form>
             <div id="alerts"></div>
+            <script>
+              elem = document.getElementById("searchForm");
+              elem.onkeyup = function(e){
+                  if(e.keyCode ==13){
+                      searchContacts();
+                  }
+              }
+            </script>
         </div>
       </div>
       <div class="row row-cols-2 row-cols-md-4 g-4 g-lg-3" id="contactsHolder">
