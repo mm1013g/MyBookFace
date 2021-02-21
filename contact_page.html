@@ -14,6 +14,17 @@
   <body>
     <div class="container">
       <div class="row text-center text-white">
+        <div class="col-12">
+          <h1 style="float: left; ">
+            <span style="color: #1877f2;">My</span><span style="color:#1877f2;">BookFace</style>
+          </h1>
+          <div class="text-white" style="float: right;">
+            <h3 id="loginNameInfo" style="display:inline-block;">Logged in as</h4>
+            <input type="button" class="btn btn-secondary mb-3" onclick="doLogout();" id="logoutButton" value="Logout">
+          </div>
+        </div>
+      </div>
+      <div class="row text-center text-white">
         <div class="col-md">
             <h1>Add a contact</h1>
             <form id="addForm">
@@ -64,10 +75,18 @@
               }
             </script>
         </div>
+        <!-- <div class="col-1">
+          <h4 id="loginNameInfo">Logged in as</h4>
+          <input type="button" class="btn btn-primary mb-3" onclick="logout();" id="logoutButton" value="Logout">
+        </div> -->
       </div>
-      <div class="row row-cols-2 row-cols-md-4 g-4 g-lg-3" id="contactsHolder">
-      </div>
+      <div class="row row-cols-2 row-cols-md-4 g-4 g-lg-3" id="contactsHolder"></div>
     </div>
+    
+    <!-- <div class="position-absolute top-0 end-0 p-2 text-white text-wrap" style="width: 12rem;">
+      <h4 id="loginNameInfo">Logged in as</h4>
+      <input type="button" class="btn btn-primary mb-3" onclick="logout();" id="logoutButton" value="Logout">
+    </div> -->
       <!-- Edit Modal -->
       <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

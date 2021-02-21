@@ -116,8 +116,8 @@ function doLogin() {
 				lastName = jsonObject.lastName;
 
 				// saveCookie();
-
-				window.location.href = "contact_page.html?userID=" + userID;
+				saveCookie();
+				window.location.href = "contact_page.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -149,7 +149,7 @@ function saveCookie() {
 	const minutes = 20;
 	const date = new Date();
 	date.setTime(date.getTime() + (minutes * 60 * 1000));
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userID=" + userID + ";expires=" + date.toGMTString();
 }
 
 function readCookie() {
@@ -165,16 +165,9 @@ function readCookie() {
 		else if (tokens[0] == "lastName") {
 			lastName = tokens[1];
 		}
-		else if (tokens[0] == "userId") {
-			userId = parseInt(tokens[1].trim());
+		else if (tokens[0] == "userID") {
+			userID = parseInt(tokens[1].trim());
 		}
-	}
-
-	if (userId < 0) {
-		window.location.href = "index.html";
-	}
-	else {
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
 }
 

@@ -1,6 +1,12 @@
 const urlParams = new URLSearchParams(window.location.search);
-userID = urlParams.get('userID');
-displayAll();
+// userID = urlParams.get('userID');
+// document.getElementById("loginNameInfo").innerHTML = "Logged in as " + firstName + " " + lastName;
+
+$(document).ready(function() {
+	readCookie();
+	displayAll();
+    $('#loginNameInfo').text(`Logged in as ${firstName} ${lastName}`);
+});
 
 let contactDict = {};
 let currentEditID;
