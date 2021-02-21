@@ -52,6 +52,7 @@ function addContact() {
 	}
 }
 
+
 function searchContacts() {
 	const srch = document.getElementById("searchText").value;
 	// document.getElementById("contactSearchResult").innerHTML = "";
@@ -79,6 +80,14 @@ function searchContacts() {
 		addAlert(err.message);
 	}
 
+}
+
+function liveSearch() {
+	const checked = $("#liveSearchCheck").is(':checked');
+	if(checked)
+	{
+		searchContacts();
+	}
 }
 
 function displayAll() {
@@ -110,7 +119,7 @@ function placeContact(contact) {
 	contactDict[contact.contactID] = contact;
 	$('#contactsHolder').append(
 		'<div class="col" id=' + contact.contactID + '>' +
-                '<div class="card" style="width: 17rem;">' +
+                '<div class="card" style="">' +
                     '<div class="card-body">' +
                       '<h5 class="card-title" id="'+ contact.contactID +'Name">' + contact.firstName + " " + contact.lastName +'</h5>' +
                       '<h6 class="card-subtitle mb-2 text-muted" id="'+ contact.contactID +'Email">' + contact.email + '</h6>' +
