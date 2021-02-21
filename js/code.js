@@ -69,6 +69,7 @@ function doRegister() {
 				else {
 					// document.getElementById("registerResult").innerHTML = "Successfully Registered " + firstName + " " + lastName;
 					addSuccess("Successfully Registered " + firstName + " " + lastName);
+					window.location.href = "index.html";
 				}
 			}
 		}
