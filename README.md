@@ -1,5 +1,10 @@
+
 # MyBookFace
 
-A highly advanced and sophisticated web contact manager.
+Contact Manager made for COP4331
 
-Only for the elites of society
+## LAMP Stack
+- Linux Operating System
+- Apache Server
+- MySql Database
+- PHP Script for API
